@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BiteBase – Indian Recipe Finder</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="#" class="logo">
+        <span class="logo-icon">🍛</span>
+        <span class="logo-text">Bite<strong>Base</strong></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#search-section">Find Recipes</a></li>
+        <li><a href="#favorites-section">Favourites</a></li>
+        <li><a href="#recents-section">Recent</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+          <span class="theme-icon">🌙</span>
+        </button>
+        <button class="surprise-btn" id="surpriseBtn">Surprise Me 🇮🇳</button>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#search-section">Find Recipes</a>
+      <a href="#favorites-section">Favourites</a>
+      <a href="#recents-section">Recent</a>
+      <button class="surprise-btn" id="surpriseBtnMobile">Surprise Me 🇮🇳</button>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="hero">
+    <div class="hero-bg-blobs">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+    </div>
+    <div class="hero-content">
+      <span class="hero-tag">🌶️ India's Flavour Engine</span>
+      <h1 class="hero-title">
+        What's in your <br /><em>kitchen?</em>
+      </h1>
+      <p class="hero-subtitle">
+        Drop your ingredients. We'll find the perfect Indian dish — from spicy Punjabi curries to fragrant South Indian feasts.
+      </p>
+      <a href="#search-section" class="hero-cta">Start Cooking →</a>
+    </div>
+    <div class="hero-visual">
+      <div class="dish-orbit">
+        <div class="dish dish-1">🍲</div>
+        <div class="dish dish-2">🫓</div>
+        <div class="dish dish-3">🍛</div>
+        <div class="dish dish-4">🥘</div>
+        <div class="dish dish-5">🌯</div>
+        <div class="orbit-ring"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MAIN SEARCH SECTION ===== -->
+  <section class="search-section" id="search-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Find Your <em>Perfect Recipe</em></h2>
+        <p>Add ingredients you have and let BiteBase do the magic</p>
+      </div>
+
+      <!-- Ingredient Input -->
+      <div class="ingredient-input-box">
+        <div class="input-row">
+          <div class="input-wrapper">
+            <span class="input-icon">🥕</span>
+            <input
+              type="text"
+              id="ingredientInput"
+              placeholder="e.g. paneer, tomato, onion…"
+              autocomplete="off"
+            />
+          </div>
+          <button class="btn-add" id="addIngredientBtn">Add</button>
+        </div>
+        <!-- Tags container -->
+        <div class="tags-container" id="tagsContainer"></div>
+        <p class="input-hint">Press <kbd>Enter</kbd> or click "Add" · Separate multiple with commas</p>
+      </div>
+
+      <!-- Food Preference -->
+      <div class="preference-row">
+        <span class="pref-label">Preference:</span>
+        <div class="pref-tabs" id="prefTabs">
+          <button class="pref-tab active" data-pref="all">🍽️ All</button>
+          <button class="pref-tab" data-pref="vegetarian">🥦 Vegetarian</button>
+          <button class="pref-tab" data-pref="non-vegetarian">🍗 Non-Veg</button>
+          <button class="pref-tab" data-pref="vegan">🌱 Vegan</button>
+        </div>
+      </div>
+
+      <!-- Search Button -->
+      <div class="search-btn-row">
+        <button class="btn-search" id="searchBtn">
+          <span class="btn-text">🔍 Find Recipes</span>
+          <span class="btn-loader" style="display:none">⏳ Searching…</span>
+        </button>
+        <button class="btn-clear" id="clearBtn">Clear All</button>
+      </div>
+
+      <!-- Recent Searches -->
+      <div class="recents-section" id="recents-section">
+        <h3>🕐 Recent Searches</h3>
+        <div class="recents-list" id="recentsList">
+          <p class="empty-recents">No recent searches yet.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== RECIPE RESULTS ===== -->
+  <section class="results-section" id="results-section">
+    <div class="container">
+      <div class="results-header" id="resultsHeader" style="display:none">
+        <h2 id="resultsTitle">Recipes Found</h2>
+        <span class="results-count" id="resultsCount"></span>
+      </div>
+
+      <!-- Loading Spinner -->
+      <div class="spinner-wrap" id="spinnerWrap" style="display:none">
+        <div class="spinner"></div>
+        <p>Simmering your results…</p>
+      </div>
+
+      <!-- Empty State -->
+      <div class="empty-state" id="emptyState" style="display:none">
+        <div class="empty-illustration">🍽️</div>
+        <h3>No Exact Matches Found</h3>
+        <p id="emptyMsg">Try adding ingredients like <strong>tomato, garlic, cream, paneer</strong> or common spices.</p>
+        <div class="empty-suggestions" id="emptySuggestions"></div>
+      </div>
+
+      <!-- Recipe Grid -->
+      <div class="recipe-grid" id="recipeGrid"></div>
+    </div>
+  </section>
+
+  <!-- ===== FAVOURITES SECTION ===== -->
+  <section class="favorites-section" id="favorites-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>❤️ Your <em>Favourites</em></h2>
+        <p>Recipes you've saved for later</p>
+      </div>
+      <div class="recipe-grid" id="favGrid">
+        <div class="empty-state" id="favEmpty">
+          <div class="empty-illustration">💔</div>
+          <h3>No Favourites Yet</h3>
+          <p>Click the ❤️ on any recipe to save it here.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="logo">
+        <span class="logo-icon">🍛</span>
+        <span class="logo-text">Bite<strong>Base</strong></span>
+      </div>
+      <p>Celebrating the rich tapestry of Indian cuisine — one recipe at a time.</p>
+      <p class="footer-credit">50+ authentic Indian recipes · Ingredient-smart matching</p>
+    </div>
+  </footer>
+
+  <!-- ===== MODAL ===== -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="recipeModal">
+      <button class="modal-close" id="modalClose">✕</button>
+      <div class="modal-content" id="modalContent"></div>
+    </div>
+  </div>
+
+  <!-- ===== TOAST ===== -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
